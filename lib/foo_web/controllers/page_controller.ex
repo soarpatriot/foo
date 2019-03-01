@@ -7,11 +7,13 @@ defmodule FooWeb.PageController do
 
   def medium(conn, _params) do
     url = "https://yun.dreamreality.cn/test"
-    options = [recv_timeout: 100000]
-    headers = []
-    data = nil
-    {:ok, response} = HTTPoison.get(url, headers, options)
-    render(conn, "medium.json", %{body: response.body})
+    # options = [recv_timeout: 100000]
+    options = [recv_timeout: 100000, max_connections: 100000]
+    {:ok, status, headers, client } = :hackney.request(:get, url, [], <<>>,options)
+    {:ok, body} = :hackney.body(client)
+    # headers = []
+    # {:ok, response} = HTTPoison.get(url, headers, options)
+    render(conn, "medium.json", %{body: body})
   end
 
   def short(conn, _params) do
