@@ -17,7 +17,10 @@ defmodule FooWeb.PageController do
   end
 
   def short(conn, _params) do
-    render(conn, "index.html")
+    url = "https://yun.dreamreality.cn/test"
+    options = [recv_timeout: 100000, max_connections: 100000]
+    {:ok, response} = HTTPoison.get(url, [], options)
+    render(conn, "medium.json", %{body: response.body})
   end
 
   def long(conn, _params) do
