@@ -8,7 +8,7 @@ defmodule FooWeb.PageController do
   def medium(conn, _params) do
     url = "https://yun.dreamreality.cn/test"
     # options = [recv_timeout: 100000]
-    options = [recv_timeout: 100000, max_connections: 100000]
+    options = [timeout: 100000, recv_timeout: 1000000, max_connections: 1000000]
     {:ok, status, headers, client } = :hackney.request(:get, url, [], <<>>,options)
     {:ok, body} = :hackney.body(client)
     # headers = []
