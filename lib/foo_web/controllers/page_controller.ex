@@ -24,6 +24,13 @@ defmodule FooWeb.PageController do
   end
 
   def long(conn, _params) do
-    render(conn, "index.html")
+    url = "https://yun.dreamreality.cn/medium"
+    # options = [recv_timeout: 100000]
+    options = [timeout: 100000, recv_timeout: 1000000, max_connections: 1000000]
+    {:ok, status, headers, client } = :hackney.request(:get, url, [], <<>>,options)
+    {:ok, body} = :hackney.body(client)
+    # headers = []
+    # {:ok, response} = HTTPoison.get(url, headers, options)
+    render(conn, "medium.json", %{body: body})
   end
 end
