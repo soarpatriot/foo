@@ -26,7 +26,8 @@ defmodule FooWeb.Router do
   scope "/api", FooWeb do
     pipe_through :api
     get "/test", PageController, :medium
-    get "/test-long", PageController, :long
-    get "/test-short", PageController, :short
+    get "/long", PageController, :long
+    get "/short", PageController, :short
+    get "/normal", PageController, :normal
   end
 end

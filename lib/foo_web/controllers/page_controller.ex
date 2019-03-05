@@ -17,11 +17,19 @@ defmodule FooWeb.PageController do
   end
 
   def short(conn, _params) do
-    url = "https://yun.dreamreality.cn/test"
+    url = "https://yun.dreamreality.cn/short"
     options = [recv_timeout: 100000, max_connections: 100000]
     {:ok, response} = HTTPoison.get(url, [], options)
     render(conn, "medium.json", %{body: response.body})
   end
+
+  def normal(conn, _params) do
+    url = "https://yun.dreamreality.cn/normal"
+    options = [recv_timeout: 100000, max_connections: 100000]
+    {:ok, response} = HTTPoison.get(url, [], options)
+    render(conn, "medium.json", %{body: response.body})
+  end
+
 
   def long(conn, _params) do
     url = "https://yun.dreamreality.cn/medium"
