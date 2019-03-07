@@ -25,9 +25,13 @@ defmodule FooWeb.PageController do
 
   def normal(conn, _params) do
     url = "https://yun.dreamreality.cn/normal"
-    options = [recv_timeout: 900000, max_connections: 1000000]
-    {:ok, response} = HTTPoison.get(url, [], options)
-    render(conn, "medium.json", %{body: response.body})
+    # options = [recv_timeout: 900000, max_connections: 1000000]
+    # {:ok, response} = HTTPoison.get(url, [], options)
+ 
+    options = [timeout: 100000, recv_timeout: 1000000, max_connections: 1000000]
+    {:ok, status, headers, client } = :hackney.request(:get, url, [], <<>>,options)
+    {:ok, body} = :hackney.body(client)
+    render(conn, "medium.json", %{body: body})
   end
 
 
